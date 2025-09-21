@@ -12,7 +12,11 @@ module.exports = {
 	darkMode: "class",
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+			},
 			colors: {
+				"app-primary": "#1F346C",
 				primary: {
 					DEFAULT: "rgb(var(--color-primary) / <alpha-value>)",
 					foreground: "rgb(var(--color-primary-foreground) / <alpha-value>)",
