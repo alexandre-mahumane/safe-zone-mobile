@@ -7,7 +7,14 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.json", "**/*.css"]
+		"includes": [
+			"**/*.js",
+			"**/*.jsx",
+			"**/*.ts",
+			"**/*.tsx",
+			"**/*.json",
+			"**/*.css"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -65,13 +72,17 @@
 		"enabled": true,
 		"actions": {
 			"source": {
-				"organizeImports": "on"
+				"organizeImports": "off"
 			}
 		}
 	},
 	"overrides": [
 		{
-			"includes": ["*.config.js", "*.config.ts", "*.config.mjs"],
+			"includes": [
+				"*.config.js",
+				"*.config.ts",
+				"*.config.mjs"
+			],
 			"linter": {
 				"rules": {
 					"style": {
@@ -81,7 +92,10 @@
 			}
 		},
 		{
-			"includes": ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}"],
+			"includes": [
+				"**/*.test.{js,jsx,ts,tsx}",
+				"**/*.spec.{js,jsx,ts,tsx}"
+			],
 			"linter": {
 				"rules": {
 					"suspicious": {
