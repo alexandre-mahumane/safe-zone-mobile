@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const signUpSchema = z
   .object({
-    fullName: z
+    name: z
       .string()
       .min(2, 'Nome deve ter pelo menos 2 caracteres')
       .max(50, 'Nome deve ter no máximo 50 caracteres')
@@ -28,3 +28,8 @@ export const signUpSchema = z
   })
 
 export type SignUpFormData = z.infer<typeof signUpSchema>
+
+export type SignUpSubmitData = Pick<
+  z.infer<typeof signUpSchema>,
+  'email' | 'phone' | 'password' | 'name'
+>
