@@ -45,7 +45,6 @@ const ConfirmOTP = () => {
   const [otpKey, setOtpKey] = useState(0)
   const [isVerifying, setIsVerifying] = useState(false)
   const [isResending, setIsResending] = useState(false)
-  const { login } = useAuth()
 
   const onClose = () => {
     setIsOpen(false)
@@ -57,7 +56,6 @@ const ConfirmOTP = () => {
     setIsOpen(false)
     setIsVerifying(false)
     setIsResending(false)
-    // Force re-render do OtpInput component
     setOtpKey((prev) => prev + 1)
   }
 
@@ -65,13 +63,7 @@ const ConfirmOTP = () => {
     setIsVerifying(true)
     try {
       const response = await sendEmail(email, otp)
-      console.log(response)
-
-      // Extract user and session data from response
-      const { user, session } = response.data.data
-
-      // Store auth data in Zustand store
-      login(user, session)
+      console.log({ response })
 
       setIsOpen(true)
       setIsVerifying(false)
