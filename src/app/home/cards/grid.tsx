@@ -2,15 +2,17 @@ import React from 'react'
 import { View } from 'react-native'
 import { MapPin, AlertTriangle, Map, Users } from 'lucide-react-native'
 import { SafetyCard } from './index'
+import { useRouter } from 'expo-router'
 
 export function CardsGrid() {
+  const router = useRouter()
   return (
     <View className="px-4 py-6 ">
       <View className="flex-row mb-2">
         <SafetyCard
           title="zona segura"
           icon={MapPin}
-          onPress={() => console.log('safe-zone')}
+          onPress={() => router.push('/safeZone')}
         />
         <SafetyCard
           title="zona de perigo"

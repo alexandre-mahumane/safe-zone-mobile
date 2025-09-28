@@ -2675,6 +2675,13 @@
   dependencies:
     merge-options "^3.0.4"
 
+"@react-native-community/datetimepicker@^8.4.5":
+  version "8.4.5"
+  resolved "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-8.4.5.tgz"
+  integrity sha512-vvVOJAHjU8TFBzTUjQzANCL6C3pZSE2zjfutCATk790uz7ASEc2tOBD+EIG4BTelWtP2G9jqvXp2L7XGdhEBRg==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native/assets-registry@0.81.4":
   version "0.81.4"
   resolved "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.81.4.tgz"
@@ -5529,6 +5536,11 @@ expo-constants@~18.0.8, expo-constants@~18.0.9:
   dependencies:
     "@expo/config" "~12.0.9"
     "@expo/env" "~2.0.7"
+
+expo-document-picker@^14.0.7:
+  version "14.0.7"
+  resolved "https://registry.npmjs.org/expo-document-picker/-/expo-document-picker-14.0.7.tgz"
+  integrity sha512-81Jh8RDD0GYBUoSTmIBq30hXXjmkDV1ZY2BNIp1+3HR5PDSh2WmdhD/Ezz5YFsv46hIXHsQc+Kh1q8vn6OLT9Q==
 
 expo-file-system@~19.0.14:
   version "19.0.14"
