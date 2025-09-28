@@ -3,24 +3,26 @@ import { View, Text, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LocationItem } from '@/components/locationItem'
 import { FloatingActionButton } from '@/components/floating-action-button'
+import { CreateArea } from '@/components/modal/area-form'
 import { BottomNavigation } from '@/components/menu'
 import { SecondaryHeader } from '@/components/secondary-header'
 import { useRouter } from 'expo-router'
-import { CreateArea } from '@/components/modal/area-form'
 
-interface SafeLocation {
+interface DangerousLocation {
   name: string
-  safetyLevel: number
+  dangerLevel: number
 }
 
-export default function SafeZone() {
+export default function DangerousZone() {
   const router = useRouter()
   const [modalVisible, setModalVisible] = useState(false)
-  const [safeLocations, setSafeLocations] = useState<SafeLocation[]>([
-    { name: 'Bairro Malhampsene', safetyLevel: 70 },
-    { name: 'Bairro Liberdade', safetyLevel: 50 },
-    { name: 'Bairro C700', safetyLevel: 60 },
-    { name: 'Bairro Fomento', safetyLevel: 70 },
+  const [dangerousLocations, setDangerousLocations] = useState<
+    DangerousLocation[]
+  >([
+    { name: 'Bairro Malhampsene', dangerLevel: 70 },
+    { name: 'Bairro Liberdade', dangerLevel: 50 },
+    { name: 'Bairro C700', dangerLevel: 60 },
+    { name: 'Bairro Fomento', dangerLevel: 70 },
   ])
 
   const handleMenuPress = () => {
@@ -54,12 +56,12 @@ export default function SafeZone() {
               Localização
             </Text>
 
-            {safeLocations.map((location, index) => (
+            {dangerousLocations.map((location, index) => (
               <LocationItem
                 key={index}
+                variant="danger"
                 name={location.name}
-                level={location.safetyLevel}
-                variant="safe"
+                level={location.dangerLevel}
                 onPress={() => handleLocationPress(location.name)}
               />
             ))}
@@ -69,8 +71,8 @@ export default function SafeZone() {
         <FloatingActionButton onPress={handleAddPress} />
 
         <CreateArea
-          variant="safe"
           visible={modalVisible}
+          variant="danger"
           onClose={() => setModalVisible(false)}
           onSave={handleSaveLocation}
         />

@@ -17,7 +17,7 @@ export function CardsGrid() {
         <SafetyCard
           title="zona de perigo"
           icon={AlertTriangle}
-          onPress={() => console.log('danger-zone')}
+          onPress={() => router.push('/dangerousZone')}
         />
       </View>
 

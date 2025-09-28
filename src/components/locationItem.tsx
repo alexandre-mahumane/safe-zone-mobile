@@ -3,14 +3,16 @@ import { MapPin } from 'lucide-react-native'
 
 interface LocationItemProps {
   name: string
-  safetyLevel: number
+  level: number
   onPress?: () => void
+  variant: 'safe' | 'danger'
 }
 
 export function LocationItem({
   name,
-  safetyLevel,
+  level,
   onPress,
+  variant,
 }: LocationItemProps) {
   return (
     <TouchableOpacity
@@ -24,8 +26,15 @@ export function LocationItem({
 
       <View className="flex-1">
         <Text className=" font-semibold text-base mb-1">{name}</Text>
-        <Text className="text-text-app-primary font-light text-sm">
-          Nível De Segurança {safetyLevel}%
+        <Text className={` font-light text-sm text-app-primary `}>
+          Nível De {variant === 'safe' ? 'Segurança' : 'Perigo'}{' '}
+          <Text
+            className={`${
+              variant === 'safe' ? 'text-app-primary' : 'text-red-600'
+            }`}
+          >
+            {level}%
+          </Text>
         </Text>
       </View>
     </TouchableOpacity>

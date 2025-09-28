@@ -14,10 +14,11 @@ import { X, Flag, Calendar, Clock, Camera, Play } from 'lucide-react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import * as DocumentPicker from 'expo-document-picker'
 
-interface CreateSafeZoneModalProps {
+interface CreateModalProps {
   visible: boolean
   onClose: () => void
   onSave: (data: SafeZoneData) => void
+  variant: 'safe' | 'danger'
 }
 
 interface SafeZoneData {
@@ -37,7 +38,8 @@ export function CreateArea({
   visible,
   onClose,
   onSave,
-}: CreateSafeZoneModalProps) {
+  variant,
+}: CreateModalProps) {
   const today = new Date()
   const [formData, setFormData] = useState<SafeZoneData>({
     location: 'Bairro Malhampsene',
@@ -55,6 +57,24 @@ export function CreateArea({
   const [showTimePicker, setShowTimePicker] = useState(false)
   const [loadingMedia, setLoadingMedia] = useState(false)
 
+  const data =
+    variant === 'safe'
+      ? [
+          { key: 'goodLighting', label: 'Boa Iluminação' },
+          { key: 'policePresence', label: 'Presença policial' },
+          {
+            key: 'publicTransport',
+            label: 'Transporte público acessível',
+          },
+        ]
+      : [
+          { key: 'poorLighting', label: 'Iluminação Insuficiente' },
+          { key: 'noPolicePresence', label: 'Falta de Policiamento' },
+          {
+            key: 'houses',
+            label: 'Casas Abandonadas',
+          },
+        ]
   const handleSave = () => {
     if (!formData.description.trim()) {
       Alert.alert('Erro', 'Por favor, adicione uma descrição do incidente.')
@@ -115,7 +135,7 @@ export function CreateArea({
       backdropColor={'rgba(0, 0, 0, 0.2)'}
     >
       <View className="h-[70%] bg-white rounded-t-2xl mt-auto">
-        <View className="flex-row items-center justify-center py-4 px-4 border-b border-gray-200 relative">
+        <View className="flex-row items-center justify-center py-4 px-4  border-gray-200 relative">
           <TouchableOpacity
             onPress={onClose}
             className="absolute left-4 p-2"
@@ -124,9 +144,16 @@ export function CreateArea({
             <X size={24} color="#1e293b" strokeWidth={2} />
           </TouchableOpacity>
           <View className="flex-row items-center">
-            <Flag size={20} color="#10b981" fill="#10b981" strokeWidth={2} />
+            <Flag
+              size={20}
+              color={`${variant === 'safe' ? '#10b981' : '#ef4444'}`}
+              fill={`${variant === 'safe' ? '#10b981' : '#ef4444'}`}
+              strokeWidth={2}
+            />
             <Text className="text-secondary-800 font-bold text-lg ml-2">
-              Criar zona segura
+              {variant === 'safe'
+                ? 'Criar zona segura'
+                : 'Criar zona de perigo'}
             </Text>
           </View>
         </View>
@@ -142,7 +169,7 @@ export function CreateArea({
               onChangeText={(text) =>
                 setFormData((prev) => ({ ...prev, location: text }))
               }
-              className="bg-gray-50 px-4 py-3 rounded-lg  text-base border-b-2 border-app-primary"
+              className=" px-4 py-3   text-base border-b-2  border-secondary-900/15"
               placeholder="Digite a localização"
             />
           </View>
@@ -152,7 +179,7 @@ export function CreateArea({
               <Text className=" font-semibold text-base mb-3">Data</Text>
               <TouchableOpacity
                 onPress={() => setShowDatePicker(true)}
-                className="bg-white border border-app-primary rounded-lg px-4 py-3 flex-row items-center"
+                className="bg-white border border-secondary-900/15 rounded-lg px-4 py-3 flex-row items-center"
                 activeOpacity={0.7}
               >
                 <Calendar size={20} color="#64748b" strokeWidth={1.5} />
@@ -180,7 +207,7 @@ export function CreateArea({
               <Text className=" font-semibold text-base mb-3">Hora</Text>
               <TouchableOpacity
                 onPress={() => setShowTimePicker(true)}
-                className="bg-white border border-app-primary rounded-lg px-4 py-3 flex-row items-center"
+                className="bg-white border border-secondary-900/15 rounded-lg px-4 py-3 flex-row items-center"
                 activeOpacity={0.7}
               >
                 <Clock size={20} color="#64748b" strokeWidth={1.5} />
@@ -220,7 +247,7 @@ export function CreateArea({
               placeholder="Indroduza a descrição do Incidente"
               multiline
               numberOfLines={4}
-              className="bg-white border-b border-app-primary px-0 py-2 text-secondary-600 text-base"
+              className="bg-white border-b border-secondary-900/15 px-0 py-2 text-secondary-600 text-base"
               style={{ textAlignVertical: 'top' }}
             />
           </View>
@@ -230,14 +257,7 @@ export function CreateArea({
               Características da área
             </Text>
             <View className="space-y-3">
-              {[
-                { key: 'goodLighting', label: 'Boa Iluminação' },
-                { key: 'policePresence', label: 'Presença policial' },
-                {
-                  key: 'publicTransport',
-                  label: 'Transporte público acessível',
-                },
-              ].map((item) => (
+              {data.map((item) => (
                 <TouchableOpacity
                   key={item.key}
                   onPress={() =>
@@ -253,8 +273,8 @@ export function CreateArea({
                       formData.characteristics[
                         item.key as keyof typeof formData.characteristics
                       ]
-                        ? 'bg-app-primary border-app-primary'
-                        : 'border-app-primary'
+                        ? 'bg-app-primary border-secondary-900/15'
+                        : 'border-secondary-900/15'
                     }`}
                   >
                     {formData.characteristics[
