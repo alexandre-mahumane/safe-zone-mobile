@@ -6,7 +6,7 @@ import { FloatingActionButton } from '@/components/floating-action-button'
 import { CreateArea } from '@/components/modal/area-form'
 import { BottomNavigation } from '@/components/menu'
 import { SecondaryHeader } from '@/components/secondary-header'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 
 interface DangerousLocation {
   name: string
@@ -15,7 +15,10 @@ interface DangerousLocation {
 
 export default function DangerousZone() {
   const router = useRouter()
-  const [modalVisible, setModalVisible] = useState(false)
+  const params = useLocalSearchParams()
+  const [modalVisible, setModalVisible] = useState(
+    params.modalIsOpen === 'true' || false
+  )
   const [dangerousLocations, setDangerousLocations] = useState<
     DangerousLocation[]
   >([
@@ -68,10 +71,15 @@ export default function DangerousZone() {
           </View>
         </ScrollView>
 
-        <FloatingActionButton onPress={handleAddPress} />
+        <FloatingActionButton
+          onPress={() =>
+            router.navigate({ pathname: '/map', params: { variant: 'danger' } })
+          }
+        />
 
         <CreateArea
           visible={modalVisible}
+          location={params}
           variant="danger"
           onClose={() => setModalVisible(false)}
           onSave={handleSaveLocation}

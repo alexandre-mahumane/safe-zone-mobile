@@ -5,7 +5,7 @@ import { LocationItem } from '@/components/locationItem'
 import { FloatingActionButton } from '@/components/floating-action-button'
 import { BottomNavigation } from '@/components/menu'
 import { SecondaryHeader } from '@/components/secondary-header'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import { CreateArea } from '@/components/modal/area-form'
 
 interface SafeLocation {
@@ -15,7 +15,10 @@ interface SafeLocation {
 
 export default function SafeZone() {
   const router = useRouter()
-  const [modalVisible, setModalVisible] = useState(false)
+  const params = useLocalSearchParams()
+  const [modalVisible, setModalVisible] = useState(
+    params.modalIsOpen === 'true' || false
+  )
   const [safeLocations, setSafeLocations] = useState<SafeLocation[]>([
     { name: 'Bairro Malhampsene', safetyLevel: 70 },
     { name: 'Bairro Liberdade', safetyLevel: 50 },
@@ -66,10 +69,15 @@ export default function SafeZone() {
           </View>
         </ScrollView>
 
-        <FloatingActionButton onPress={handleAddPress} />
+        <FloatingActionButton
+          onPress={() =>
+            router.navigate({ pathname: '/map', params: { variant: 'safe' } })
+          }
+        />
 
         <CreateArea
           variant="safe"
+          location={params}
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           onSave={handleSaveLocation}

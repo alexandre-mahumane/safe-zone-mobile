@@ -19,6 +19,7 @@ interface CreateModalProps {
   onClose: () => void
   onSave: (data: SafeZoneData) => void
   variant: 'safe' | 'danger'
+  location: any
 }
 
 interface SafeZoneData {
@@ -39,10 +40,11 @@ export function CreateArea({
   onClose,
   onSave,
   variant,
+  location,
 }: CreateModalProps) {
   const today = new Date()
   const [formData, setFormData] = useState<SafeZoneData>({
-    location: 'Bairro Malhampsene',
+    location: location?.name || '',
     date: today.toLocaleDateString(),
     time: today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     description: '',
@@ -169,7 +171,8 @@ export function CreateArea({
               onChangeText={(text) =>
                 setFormData((prev) => ({ ...prev, location: text }))
               }
-              className=" px-4 py-3   text-base border-b-2  border-secondary-900/15"
+              selection={{ start: 0, end: 0 }} // força o cursor para o início
+              className="px-4 py-3 text-base border-b-2 border-secondary-900/15"
               placeholder="Digite a localização"
             />
           </View>

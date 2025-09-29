@@ -1,10 +1,12 @@
-// import MapComponent from '@/components/map'
-// import { View } from 'react-native'
+import MapComponent from '@/components/map'
+import { useLocalSearchParams } from 'expo-router'
+import { View } from 'react-native'
 
-// export function Map() {
-//   return (
-//     <View className="flex-1">
-//       <MapComponent />
-//     </View>
-//   )
-// }
+export default function MapScreen() {
+  const params = useLocalSearchParams()
+  return (
+    <View className="flex-1">
+      <MapComponent variant={params.variant as 'safe' | 'danger'} />
+    </View>
+  )
+}
